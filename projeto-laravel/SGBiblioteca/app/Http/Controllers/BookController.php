@@ -38,7 +38,14 @@ class BookController extends Controller
             'publisher_id' => 'required|integer',
             'published_year' => 'required|integer',
             'categories' => 'required|array',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
+        if ($request->hasFile('cover_image')) {
+            $imageName = time().'.'.$request->cover_image->extension();
+            $request->cover_image->move(public_path('images'), $imageName);
+            $validatedData['cover_image'] = 'images/' . $imageName;
+        }
 
         $book = Book::create($validatedData);
         $book->categories()->attach($request->categories);
@@ -56,25 +63,45 @@ class BookController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'author_id' => 'required|integer',
-            'publisher_id' => 'required|integer',
-            'published_year' => 'required|integer',
-            'categories' => 'required|array',
-        ]);
+{
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'author_id' => 'required|integer',
+        'publisher_id' => 'required|integer',
+        'published_year' => 'required|integer',
+        'categories' => 'required|array',
+        'cover_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    ]);
 
-        $book = Book::findOrFail($id);
-        $book->update($validatedData);
-        $book->categories()->sync($request->categories);
+    $book = Book::findOrFail($id);
 
-        return redirect()->route('books.index')->with('success', 'Livro atualizado com sucesso!');
+    if ($request->hasFile('cover_image')) {
+        if ($book->cover_image) {
+            $oldImagePath = public_path($book->cover_image);
+            if (file_exists($oldImagePath)) {
+                unlink($oldImagePath);
+            }
+        }
+
+        $imageName = time().'.'.$request->cover_image->extension();
+        $request->cover_image->move(public_path('images'), $imageName);
+        $validatedData['cover_image'] = 'images/' . $imageName;
     }
+
+    $book->update($validatedData);
+    $book->categories()->sync($request->categories);
+
+    return redirect()->route('books.index')->with('success', 'Livro atualizado com sucesso!');
+}
 
     public function destroy($id)
     {
         $book = Book::findOrFail($id);
+        
+        if ($book->cover_image && file_exists(public_path($book->cover_image))) {
+            unlink(public_path($book->cover_image));
+        }
+
         $book->categories()->detach();
         $book->delete();
 

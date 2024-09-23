@@ -18,9 +18,7 @@ Route::resource('categories', CategoryController::class);
 // Rotas para Publishers
 Route::resource('publishers', PublisherController::class);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [BookController::class, 'index']);
 
 Auth::routes();
 
