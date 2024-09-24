@@ -6,14 +6,15 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 
 
 Route::get('/', function () {
-    return redirect()->route('login'); 
+    return redirect()->route('login');
 });
 
 
-Auth::routes(); 
+Auth::routes();
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -21,10 +22,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('users', UserController::class);
 
-Route::resource('books', BookController::class)->middleware('auth'); 
+Route::resource('books', BookController::class)->middleware('auth');
 
-Route::resource('authors', AuthorController::class)->middleware('auth'); 
+Route::resource('authors', AuthorController::class)->middleware('auth');
 
-Route::resource('categories', CategoryController::class)->middleware('auth'); 
+Route::resource('categories', CategoryController::class)->middleware('auth');
 
-Route::resource('publishers', PublisherController::class)->middleware('auth'); 
+Route::resource('publishers', PublisherController::class)->middleware('auth');
+
+Route::post('/books/{book}/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');

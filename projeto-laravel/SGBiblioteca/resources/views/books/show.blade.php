@@ -25,5 +25,27 @@
                 <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este livro?')">Excluir</button>
             </form>
         </div>
+
+        <div class="mt-5">
+            <h2>Comentários</h2>
+            @foreach($book->comments as $comment)
+                <div class="border p-2 mb-2">
+                    <strong>{{ $comment->user->name }}</strong>: {{ $comment->comment }} <br>
+                    <small class="text-muted">{{ $comment->created_at->format('d/m/Y H:i') }}</small>
+                </div>
+            @endforeach
+
+            @if(Auth::check())
+                <form action="{{ route('comments.store', $book->id) }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <textarea name="comment" rows="3" class="form-control" required placeholder="Deixe seu comentário..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Adicionar Comentário</button>
+                </form>
+            @else
+                <p class="text-muted">Faça login para deixar um comentário.</p>
+            @endif
+        </div>
     </div>
 @endsection
