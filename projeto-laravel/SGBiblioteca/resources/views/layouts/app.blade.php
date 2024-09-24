@@ -8,10 +8,12 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-dark">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -19,14 +21,14 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
-                        @can('admin-or-librarian', App\Models\User::class) 
+                        @can('admin-or-librarian', App\Models\User::class)
                             <li class="nav-item dropdown">
                                 <a id="booksDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Livros
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="booksDropdown">
-                                    <a class="dropdown-item" href="{{ route('books.index') }}">Listar Livros</a>
-                                    <a class="dropdown-item" href="{{ route('books.create') }}">Adicionar Livro</a>
+                                    <a class="dropdown-item no-border text-dark" href="{{ route('books.index') }}">Listar Livros</a>
+                                    <a class="dropdown-item no-border text-dark" href="{{ route('books.create') }}">Adicionar Livro</a>
                                 </div>
                             </li>
 
@@ -35,8 +37,8 @@
                                     Autores
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="authorsDropdown">
-                                    <a class="dropdown-item" href="{{ route('authors.index') }}">Listar Autores</a>
-                                    <a class="dropdown-item" href="{{ route('authors.create') }}">Adicionar Autor</a>
+                                    <a class="dropdown-item no-border text-dark" href="{{ route('authors.index') }}">Listar Autores</a>
+                                    <a class="dropdown-item no-border text-dark" href="{{ route('authors.create') }}">Adicionar Autor</a>
                                 </div>
                             </li>
 
@@ -45,8 +47,8 @@
                                     Categorias
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                                    <a class="dropdown-item" href="{{ route('categories.index') }}">Listar Categorias</a>
-                                    <a class="dropdown-item" href="{{ route('categories.create') }}">Adicionar Categoria</a>
+                                    <a class="dropdown-item no-border text-dark" href="{{ route('categories.index') }}">Listar Categorias</a>
+                                    <a class="dropdown-item no-border text-dark" href="{{ route('categories.create') }}">Adicionar Categoria</a>
                                 </div>
                             </li>
 
@@ -55,8 +57,8 @@
                                     Editoras
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="publishersDropdown">
-                                    <a class="dropdown-item" href="{{ route('publishers.index') }}">Listar Editoras</a>
-                                    <a class="dropdown-item" href="{{ route('publishers.create') }}">Adicionar Editora</a>
+                                    <a class="dropdown-item no-border text-dark" href="{{ route('publishers.index') }}">Listar Editoras</a>
+                                    <a class="dropdown-item no-border text-dark" href="{{ route('publishers.create') }}">Adicionar Editora</a>
                                 </div>
                             </li>
                         @endcan
@@ -82,7 +84,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item no-border text-dark" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

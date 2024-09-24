@@ -1,0 +1,41 @@
+body {
+    background-image: url('/images/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: aliceblue ;
+    background-attachment: fixed;
+
+}
+.navbar-light .navbar-nav .nav-link{
+    color: aliceblue !important;
+}
+
+.gp .btn {
+    color: white;
+    margin-right: 5px;
+    border-radius: 8px;
+}
+
+a, h1, h2, h3, h4, h5, p, label {
+    text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+    color: white;
+}
+
+.a .btn{
+    text-shadow: none !important;
+}
+.no-border{
+    text-shadow: none !important;
+    color: white;
+}
+
+.bg-dark
+{
+    background-color: #00000097 !important;
+}

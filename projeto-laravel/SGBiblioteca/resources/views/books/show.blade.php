@@ -2,23 +2,30 @@
 
 @section('content')
     <div class="container">
-        <h1>{{ $book->title }}</h1>
-        <p><strong>Autor:</strong> {{ $book->author->name }}</p>
-        <p><strong>Editora:</strong> {{ $book->publisher->name }}</p>
-        <p><strong>Ano de Publicação:</strong> {{ $book->published_year }}</p>
-        <p><strong>Categorias:</strong>
-            @foreach ($book->categories as $category)
-                <span class="badge bg-secondary">{{ $category->name }}</span>
-            @endforeach
-        </p>
-        @if($book->cover_image)
-            <img src="{{ asset($book->cover_image) }}" alt="Capa do livro" class="img-fluid mb-3">
-        @else
-            <p>Imagem não disponível</p>
-        @endif
+        <div class="row">
+            <div class="col-md-4 text-center">
+                @if($book->cover_image)
+                    <img src="{{ asset($book->cover_image) }}" alt="Capa do livro" class="img-fluid mb-3">
+                @else
+                    <p>Imagem não disponível</p>
+                @endif
+            </div>
+            <div class="col-md-8"> 
+                <h1>{{ $book->title }}</h1>
+                <p><strong>Autor:</strong> {{ $book->author->name }}</p>
+                <p><strong>Editora:</strong> {{ $book->publisher->name }}</p>
+                <p><strong>Ano de Publicação:</strong> {{ $book->published_year }}</p>
+                <p><strong>Categorias:</strong>
+                    @foreach ($book->categories as $category)
+                        <span class="badge bg-secondary">{{ $category->name }}</span>
+                    @endforeach
+                </p>
+            </div>
+        </div>
+
         <div class="mt-3">
-            <a href="{{ route('books.index') }}" class="btn btn-primary">Voltar à Lista</a>
-            <a href="{{ route('books.edit', $book->id) }}" class="btn btn-warning">Editar</a>
+            <a href="{{ route('books.index') }}" class="btn btn-primary no-border">Voltar à Lista</a>
+            <a href="{{ route('books.edit', $book->id) }}" class="btn btn-warning no-border">Editar</a>
             <form action="{{ route('books.destroy', $book->id) }}" method="POST" style="display:inline-block;">
                 @csrf
                 @method('DELETE')

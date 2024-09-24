@@ -14,7 +14,6 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-
         return $user->role === 'admin';
     }
     public function adminOrLibrarian(User $user)
